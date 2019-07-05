@@ -1,2 +1,2 @@
 # leveldbgo
-leveldb implement  by go.just for fun
+leveldb implement  by go.  just for fun
