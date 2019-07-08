@@ -2,23 +2,29 @@ package skiplist
 
 
 type Node struct{
-	key interface{}
-	next []*Node
+	Key interface{}
+	forward []*Node
 }
 
 
 func newNode(key interface{},level int)*Node{
 	return &Node{
-		key:key,
-		next:=make([]*Node, level)
+		Key:key,
+		forward:make([]*Node, level),
 	}
 }
 
+func (node*Node)Next(n int)*Node{
+	if n<0{
+		panic("out of bound")
+	}
+	return node.forward[n]
+}
 
-func (node*Node)getNext(velvel int)*Node{
-	return node.next[level]
+func (node*Node)GetNext(level int)*Node{
+	return node.forward[level]
 } 
 
-func (node*Node)setNext(level int ,val* Node){
-	node.next[level]=val
+func (node*Node)SetNext(level int ,val* Node){
+	node.forward[level]=val
 }

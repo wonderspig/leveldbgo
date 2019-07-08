@@ -6,7 +6,7 @@ type Comparator func(a,b interface{}) int
 
 
 
-func IntComparator func(a,b interface{}) int{
+func IntComparator(a,b interface{}) int {
 	firstNum:=a.(int)
 	secondNum:=b.(int)
 	switch {
@@ -15,7 +15,7 @@ func IntComparator func(a,b interface{}) int{
 	case firstNum<secondNum:
 		return -1
 	default:
-		return 0
-		
+		break
 	}
+	return 0
 }
