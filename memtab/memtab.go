@@ -16,6 +16,12 @@ func NewMemTable() *MemTable {
 	}
 }
 
-func (memtable *MemTable) Add(seq SequenceNumber, valueType ValueType, key, valye []byte) {
+func (memtable *MemTable) Add(seq SequenceNumber, valueType ValueType, key, value []byte) {
+	internalKey := newInternalKey(seq, valueType, key, value)
+    memtable.table.Insert(internalKey)
+}
+
+func (memtable*MemTable)Get(key LookupKey)(value []byte,err error,bool){
+	memkey:=key.memtable_key()
 
 }
