@@ -20,8 +20,8 @@ func newLookupKey(user_key []byte, sequence SequenceNumber) *LookupKey {
 	offset += 4
 	copy(buf[offset:], user_key)
 	offset += len(user_key)
-	//这里取值，valuetype只有可能为1和2
-	binary.LittleEndian.PutUint64(buf[offset:], (uint64(sequence)<<8)|uint64(valuetype))
+	//这里取值，valuetype只有可能为0和1
+	binary.LittleEndian.PutUint64(buf[offset:], (uint64(sequence)<<8)|uint64(1))
 	buf_ := make([]byte, internalKeySize)
 	copy(buf_, buf[4:])
 	return &LookupKey{
@@ -51,4 +51,14 @@ func (lookupkey *LookupKey) user_key() []byte {
 	buf := make([]byte, len(lookupkey.kstart_)-8)
 	copy(buf, lookupkey.kstart[:len(lookupkey.kstart_)-8])
 	return buf
+}
+
+func ExtractUserKey(internal_key []byte) string {
+	if len(internal_key) <= 8 {
+		panic("internal key is invalid\n")
+	}
+	cpy := make([]byte, len(internal_key)-8)
+	copy(cpy, internal_key[:len(internal_key)-8])
+
+	return string(cpy)
 }

@@ -23,5 +23,6 @@ func (memtable *MemTable) Add(seq SequenceNumber, valueType ValueType, key, valu
 
 func (memtable*MemTable)Get(key LookupKey)(value []byte,err error,bool){
 	memkey:=key.memtable_key()
+	
 
 }

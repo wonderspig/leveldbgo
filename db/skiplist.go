@@ -27,7 +27,7 @@ func NewSkipList(compare utils.Comparator) *SkipList {
 	return &SkipList{
 		maxHeight:  1,
 		head:       newNode(nil, kMaxHeight),
-		comparator: compare,
+		comparator: &utils.IntComparator{},
 		rnd:        utils.NewRandom(3735928559),
 	}
 }
@@ -134,14 +134,14 @@ func (skiplist *SkipList) findLessThan(key interface{}) *Node {
 	x := skiplist.head
 	level := skiplist.getMaxHeight() - 1
 	for {
-		if x == skiplist.head || skiplist.comparator(x.Key, key) < 0 {
+		if x == skiplist.head || skiplist.comparator.Compare(x.Key, key) < 0 {
 
 		} else {
 			panic("It has a problem!The program exit")
 
 		}
 		next := x.Next(level)
-		if next == nil || skiplist.comparator(x.Key, key) >= 0 {
+		if next == nil || skiplist.comparator.Compare(x.Key, key) >= 0 {
 			if level == 0 {
 				return x
 			} else {
